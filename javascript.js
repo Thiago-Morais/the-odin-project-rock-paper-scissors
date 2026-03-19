@@ -1,3 +1,4 @@
+const MAX_SCORE = 3;
 let humanScore = 0;
 let computerScore = 0;
 
@@ -8,8 +9,6 @@ function getComputerChoice() {
   return choice;
 }
 
-// getComputerChoice();
-
 function getHumanChoice() {
   const message = `Type your option:
 - "Rock"
@@ -19,21 +18,17 @@ function getHumanChoice() {
   return input;
 }
 
-// getHumanChoice();
-
 function playRound(humanChoice, computerChoice) {
   humanChoice = humanChoice.toLowerCase();
   computerChoice = computerChoice.toLowerCase();
 
-  // check for draw
-  // create a function to check a winner when they are different
-  // log message deppending on player's result
-
   if (isADraw(humanChoice, computerChoice)) {
     console.log(`It's a draw! You both played \`${humanChoice}\``);
   } else if (doesABeatsB(humanChoice, computerChoice)) {
+    humanScore++;
     console.log(`You win! \`${humanChoice}\` beats \`${computerChoice}\``);
   } else {
+    computerScore++;
     console.log(`You lose! \`${humanChoice}\` loses to \`${computerChoice}\``);
   }
 
@@ -50,9 +45,37 @@ function playRound(humanChoice, computerChoice) {
   }
 }
 
-// playRound("rock", "paper");
-const playerChoice = getComputerChoice();
-console.log(`playerChoice = ${playerChoice}`);
-const computerChoice = getComputerChoice();
-console.log(`computerChoice = ${computerChoice}`);
-playRound(playerChoice, computerChoice);
+function playGame() {
+  while (!gameHasWinner()) {
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+    logScore();
+  }
+  logWinner();
+}
+
+function gameHasWinner() {
+  return humanScore >= MAX_SCORE || computerScore >= MAX_SCORE;
+}
+
+function logScore() {
+  console.log(getScoreString());
+}
+
+function getScoreString() {
+  return `Player: ${humanScore} point${humanScore !== 1 ? "s" : ""}
+Computer: ${computerScore} point${computerScore !== 1 ? "s" : ""} `;
+}
+
+function logWinner() {
+  if (humanScore > computerScore) {
+    console.log("Congratulations! You won!");
+  } else {
+    console.log("You lost! I'm sorry :(");
+  }
+  console.log(`The score was:
+${getScoreString()}`);
+}
+
+playGame();
