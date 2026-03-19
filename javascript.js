@@ -32,14 +32,27 @@ function playRound(humanChoice, computerChoice) {
   if (isADraw(humanChoice, computerChoice)) {
     console.log(`It's a draw! You both played \`${humanChoice}\``);
   } else if (doesABeatsB(humanChoice, computerChoice)) {
-    console.log("You win!");
+    console.log(`You win! \`${humanChoice}\` beats \`${computerChoice}\``);
+  } else {
+    console.log(`You lose! \`${humanChoice}\` loses to \`${computerChoice}\``);
   }
 
   function isADraw(humanChoice, computerChoice) {
-    // return true;
     return humanChoice === computerChoice;
+  }
+
+  function doesABeatsB(humanChoice, computerChoice) {
+    return (
+      (humanChoice === "rock" && computerChoice === "scissors") ||
+      (humanChoice === "scissors" && computerChoice === "paper") ||
+      (humanChoice === "paper" && computerChoice === "rock")
+    );
   }
 }
 
 // playRound("rock", "paper");
-playRound(getComputerChoice(), getComputerChoice());
+const playerChoice = getComputerChoice();
+console.log(`playerChoice = ${playerChoice}`);
+const computerChoice = getComputerChoice();
+console.log(`computerChoice = ${computerChoice}`);
+playRound(playerChoice, computerChoice);
