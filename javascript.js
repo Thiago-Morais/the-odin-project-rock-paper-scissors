@@ -2,11 +2,18 @@ const MAX_SCORE = 3;
 let humanScore = 0;
 let computerScore = 0;
 
-function getComputerChoice() {
-  const options = ["rock", "paper", "scissors"];
-  const randomIndex = parseInt(Math.random() * options.length);
-  const choice = options[randomIndex];
-  return choice;
+function playGame() {
+  while (!gameHasWinner()) {
+    const humanChoice = getHumanChoice();
+    const computerChoice = getComputerChoice();
+    playRound(humanChoice, computerChoice);
+    logScore();
+  }
+  logWinner();
+}
+
+function gameHasWinner() {
+  return humanScore >= MAX_SCORE || computerScore >= MAX_SCORE;
 }
 
 function getHumanChoice() {
@@ -16,6 +23,13 @@ function getHumanChoice() {
 - "Scissors"`;
   const input = prompt(message, "Rock");
   return input;
+}
+
+function getComputerChoice() {
+  const options = ["rock", "paper", "scissors"];
+  const randomIndex = parseInt(Math.random() * options.length);
+  const choice = options[randomIndex];
+  return choice;
 }
 
 function playRound(humanChoice, computerChoice) {
@@ -43,20 +57,6 @@ function playRound(humanChoice, computerChoice) {
       (humanChoice === "paper" && computerChoice === "rock")
     );
   }
-}
-
-function playGame() {
-  while (!gameHasWinner()) {
-    const humanChoice = getHumanChoice();
-    const computerChoice = getComputerChoice();
-    playRound(humanChoice, computerChoice);
-    logScore();
-  }
-  logWinner();
-}
-
-function gameHasWinner() {
-  return humanScore >= MAX_SCORE || computerScore >= MAX_SCORE;
 }
 
 function logScore() {
