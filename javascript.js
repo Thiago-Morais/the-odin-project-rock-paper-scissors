@@ -72,7 +72,7 @@ function logWinner() {
   if (humanScore > computerScore) {
     console.log("Congratulations! You won!");
   } else {
-    console.log("You lost! I'm sorry :(");
+    console.log("You lost... I'm sorry :(");
   }
   console.log(`The score was:
 ${getScoreString()}`);
