@@ -78,4 +78,4 @@ function logWinner() {
 ${getScoreString()}`);
 }
 
-playGame();
+// playGame();
